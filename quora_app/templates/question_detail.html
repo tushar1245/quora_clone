@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quora Clone - Question Detail</title>
+</head>
+<body>
+    <h1>{{ question.text }}</h1>
+    <p>Posted by: {{ question.user.username }}</p>
+    <h2>Answers:</h2>
+    <ul>
+        {% for answer in answers %}
+        <li>
+            {{ answer.text }}
+            <br>
+            <small>{{ answer.like_count }} Likes</small>
+            <a href="{% url 'like_answer' answer.id %}">Like</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <h2>Post an Answer:</h2>
+    <form method="post" action="{% url 'post_answer' question_id=question.id %}">
+        {% csrf_token %}
+        <textarea name="text" rows="4" cols="50"></textarea>
+        <br>
+        <button type="submit" >Post Answer</button>
+    </form>
+</body>
+</html>
